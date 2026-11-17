@@ -1,0 +1,12 @@
+.reporte-titulo,
+.reporte-descripcion {
+  overflow-wrap: anywhere;
+}
+
+.reporte-descripcion {
+  white-space: pre-wrap;
+}
+
+.lista-reportes {
+  max-height: 28rem;
+}

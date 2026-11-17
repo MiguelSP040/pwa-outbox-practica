@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#143c39">
+  <meta name="description" content="Captura y sincroniza reportes incluso sin conexión.">
+  <title>Bitácora | Reportes sin conexión</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./db-helper.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body class="bg-body-tertiary">
+  <header class="bg-white border-bottom">
+    <nav class="container py-3 d-flex justify-content-between align-items-center gap-3" aria-label="Principal">
+      <a class="navbar-brand fs-4 fw-bold" href="./">bitácora <span class="text-body-secondary small fw-normal d-none d-sm-inline">/ OUTBOX</span></a>
+      <span id="conexion" class="badge rounded-pill text-bg-success" role="status">Comprobando conexión</span>
+    </nav>
+  </header>
+  <main class="container py-4 py-md-5">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-12 col-lg-6">
+        <section class="card shadow-sm h-100" aria-labelledby="titulo-formulario">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+              <div><p class="small text-success fw-semibold mb-2">01 / NUEVO REPORTE</p><h2 class="card-title h4 mb-0" id="titulo-formulario">¿Qué quieres registrar?</h2></div>
+            </div>
+            <p class="text-body-secondary small mt-3 mb-4">Completa los datos para agregar un reporte a tu bitácora.</p>
+            <form id="formulario">
+              <div class="mb-3"><label class="form-label fw-semibold" for="titulo">Título <span class="text-success">*</span></label><input class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Ej. Visita de seguimiento" required></div>
+              <div class="mb-4"><label class="form-label fw-semibold" for="descripcion">Descripción <span class="text-success">*</span></label><textarea class="form-control" id="descripcion" name="descripcion" rows="6" maxlength="2000" placeholder="Escribe aquí los detalles de tu reporte..." required></textarea></div>
+              <button id="enviar" class="btn btn-success w-100" type="submit">Guardar reporte</button>
+            </form>
+            <p id="aviso" class="text-success small mt-3 mb-0" role="status" aria-live="polite"></p>
+            <div class="border-top mt-4 pt-3 d-flex gap-3 text-body-secondary small"><p class="mb-0"><strong>Tu información permanece contigo.</strong><br>Los reportes se guardan en este navegador.</p></div>
+          </div>
+        </section>
+      </div>
+      <div class="col-12 col-lg-6">
+        <section class="card shadow-sm h-100" aria-labelledby="titulo-lista">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+              <div><p class="small text-success fw-semibold mb-2">02 / BANDEJA DE SALIDA</p><h2 class="card-title h4 mb-0" id="titulo-lista">Tus reportes</h2></div>
+              <span id="contador" class="badge rounded-pill text-bg-light border">0 pendientes</span>
+            </div>
+            <p class="text-body-secondary small mt-3 mb-4">Consulta el estado de tus envíos en este dispositivo.</p>
+            <div class="border-top border-bottom py-2 d-flex justify-content-between align-items-center gap-2"><span class="small text-body-secondary fw-semibold">ACTIVIDAD RECIENTE</span><button id="purgar" class="btn btn-outline-success btn-sm" type="button" disabled>Purgar enviados</button></div>
+            <div id="lista" class="lista-reportes d-grid gap-3 mt-3 overflow-auto" role="region" aria-label="Listado de reportes" tabindex="0"></div>
+            <div id="vacio" class="text-center text-body-secondary py-5">
+              <h3 class="h5 mt-3 mb-2 text-body">Todo comienza aquí</h3>
+              <p class="small mb-0">Todavía no tienes reportes.<br>Agrega el primero usando el formulario.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
